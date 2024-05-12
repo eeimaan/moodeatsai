@@ -5,14 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moodeatsai/constants/constants.dart';
+import 'package:moodeatsai/db_services/recipe_dbservice.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:moodeatsai/screens/screens.dart';
 
 class SaveRecipeScreen extends StatefulWidget {
   final String title;
 
-  const SaveRecipeScreen({Key? key, required this.title, })
-      : super(key: key);
+  const SaveRecipeScreen({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<SaveRecipeScreen> createState() => _SaveRecipeScreenState();
@@ -21,30 +24,10 @@ class SaveRecipeScreen extends StatefulWidget {
 class _SaveRecipeScreenState extends State<SaveRecipeScreen> {
   late Future<List<DocumentSnapshot>> _bookmarkedRecipes;
 
-  Future<List<DocumentSnapshot>> fetchBookmarkedRecipes() async {
-    final userData = await FirebaseFirestore.instance
-        .collection('save_recipe')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    final bookmarkIds = List<String>.from(userData.get('bookmarks') ?? []);
-
-    final List<DocumentSnapshot> bookmarkedRecipes = [];
-    for (final id in bookmarkIds) {
-      final docSnapshot =
-          await FirebaseFirestore.instance.collection('recipe').doc(id).get();
-      if (docSnapshot.exists) {
-        bookmarkedRecipes.add(docSnapshot);
-      }
-    }
-
-    return bookmarkedRecipes;
-  }
-
   @override
   void initState() {
     super.initState();
-    _bookmarkedRecipes = fetchBookmarkedRecipes();
+    _bookmarkedRecipes = RecipeDbservice.fetchBookmarkedRecipes();
     _bookmarkedRecipes.then((recipes) {
       log('Bookmarked Recipes: $recipes');
     });
