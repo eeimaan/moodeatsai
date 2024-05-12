@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "49404641288",
+    "project_id": "moodeatsai",
+    "storage_bucket": "moodeatsai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49404641288:android:cb2e4440efd0f3b92d91bd",
+        "android_client_info": {
+          "package_name": "com.example.moodeatsai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLRtUBNyKrvLtbtq2JGFsdTsF0LQOagzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
